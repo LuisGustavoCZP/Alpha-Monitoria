@@ -26,15 +26,12 @@ class NavLink extends HTMLElement
             this.src = this.getAttribute('src');
         }
         
-        //window.navlink = (i) => {this.change(i)};
-        
         window.addEventListener('popstate', ()=>
         {
             const h = window.location.hash;
             console.log("mudou para " + h);
             this.change(h);
         });
-        //console.log("Iniciado!")
     }
 
     change (_id)
