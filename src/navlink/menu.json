@@ -1,5 +1,5 @@
 [
-    {"title":"Home", "link":"./src/pages/home.html"},
-    {"title":"Aulas", "link":"./src/pages/aulas.html"},
-    {"title":"Demos", "link":"./src/pages/demos.html"}
+    {"title":"Home", "link":"./src/pages/home.html", "desc":"Informações gerais"},
+    {"title":"Aulas", "link":"./src/pages/aulas.html", "desc":"Exemplos e Mentorias gravadas"},
+    {"title":"Demos", "link":"./src/pages/demos.html", "desc":"Demonstrações de códigos"}
 ]

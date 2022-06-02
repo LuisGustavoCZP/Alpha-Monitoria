@@ -60,7 +60,7 @@ class NavLink extends HTMLElement
             {
                 const id = `#${element.title.toLowerCase()}`;
                 this.sources[id] = element;
-                this.containerEl.innerHTML += `<li><a type="menu" href="${id}">${element.title}</a></li>`;
+                this.containerEl.innerHTML += `<li><a title="${element.desc}" href="${id}">${element.title}</a></li>`;
             });
             //this.innerHTML = resp;
             if(resp.length > 0) this.change(`#${resp[0].title.toLowerCase()}`);
