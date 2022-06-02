@@ -46,3 +46,16 @@ sp-element {
     flex-direction: column;
     background-color: hsl(60, 73%, 75%);
 }
+
+sp-element > h2 {
+    text-align: center;
+    margin: 10px;
+    font-size: 2em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}

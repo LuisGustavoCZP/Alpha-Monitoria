@@ -1,6 +1,8 @@
 class SinglePageElement extends HTMLElement 
 {
     #src;
+    main = null;
+    title = null;
 
     static define ()
     {
@@ -10,6 +12,12 @@ class SinglePageElement extends HTMLElement
     constructor()
     {
         self = super();
+
+        this.title = document.createElement("h2");
+        this.main = document.createElement("main");
+        
+        this.append(this.title);
+        this.append(this.main);
 
         if(this.hasAttribute('src')) 
         {
@@ -23,19 +31,23 @@ class SinglePageElement extends HTMLElement
     /**
     * @param {String} _path
     */
-    set src (_path)
+    set src (_source)
     {
-        this.innerHTML = "";
-        this.#src = _path;
-        const isBlank = !_path || _path == "";
+        if(this.src) this.classList.remove(this.src.title.toLowerCase());
+        this.main.innerHTML = "";
+        this.#src = _source;
+        const isBlank = !_source || _source == "";
         
         //console.log("Carregando!");
         if(isBlank) { this.hidden = true; return;} else { this.hidden = false; }
         
-        fetch(_path)
+        fetch(_source.link)
         .then(resp => resp.text())
-        .then(resp => {
-            this.innerHTML = resp;
+        .then(resp => 
+        {
+            this.classList.add(_source.title.toLowerCase());
+            this.title.innerHTML = _source.title;
+            if(resp) this.main.innerHTML = resp;
             console.log("Carregado com sucesso!");
         })
         .catch(err => {

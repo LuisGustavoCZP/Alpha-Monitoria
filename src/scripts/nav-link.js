@@ -37,7 +37,7 @@ class NavLink extends HTMLElement
     change (_id)
     {
         this.hash = _id;
-        spe.src = this.sources[_id].link;
+        spe.src = this.sources[_id];
     }
 
     /**
@@ -63,7 +63,9 @@ class NavLink extends HTMLElement
                 this.containerEl.innerHTML += `<li><a title="${element.desc}" href="${id}">${element.title}</a></li>`;
             });
             //this.innerHTML = resp;
-            if(resp.length > 0) this.change(`#${resp[0].title.toLowerCase()}`);
+            const h = window.location.hash;
+            if(h) this.change(h);
+            else if(resp.length > 0) this.change(`#${resp[0].title.toLowerCase()}`);
             console.log("Carregado com sucesso!", resp);
         })
         .catch(err => {
