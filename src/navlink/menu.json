@@ -1,0 +1,5 @@
+[
+    {"title":"Home", "link":"./src/pages/home.html"},
+    {"title":"Aulas", "link":"./src/pages/aulas.html"},
+    {"title":"Demos", "link":"./src/pages/demos.html"}
+]

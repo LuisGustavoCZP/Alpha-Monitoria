@@ -13,20 +13,23 @@ class SinglePageElement extends HTMLElement
 
         if(this.hasAttribute('src')) 
         {
-            console.log("Tem source!");
+            //console.log("Tem source!");
             this.src = this.getAttribute('src');
         }
-
-        console.log("Iniciado!")
+        
+        window.spe = this;
     }
 
+    /**
+    * @param {String} _path
+    */
     set src (_path)
     {
         this.innerHTML = "";
         this.#src = _path;
         const isBlank = !_path || _path == "";
         
-        console.log("Carregando!");
+        //console.log("Carregando!");
         if(isBlank) { this.hidden = true; return;} else { this.hidden = false; }
         
         fetch(_path)
@@ -48,3 +51,5 @@ class SinglePageElement extends HTMLElement
 }
 
 SinglePageElement.define();
+
+export default SinglePageElement;
