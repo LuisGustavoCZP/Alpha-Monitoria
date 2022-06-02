@@ -1,0 +1,143 @@
+:root {
+  
+}
+
+html{
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button, input {
+  border: none;
+}
+
+.header-desktop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  color: white;
+  padding: 10px;
+}
+
+.header-mobile {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  color: white;
+  padding: 10px;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  
+}
+
+.navbar-mobile {
+  display: flex;
+  align-items: space-between;
+  font-size: 1rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container-input-mobile {
+  width: 100%;
+  
+}
+
+.container-input-mobile input{
+  width: 100%;
+  background-color: red;
+  margin-top: 10px;
+}
+
+.navbar-mobile h1{
+  text-align: center;
+
+}
+
+button {
+  width: 50px;
+  height: 20px;
+}
+
+.navbar nav ul {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.navbar nav ul li{
+  margin-right: 15px;
+}
+
+h1 {
+  margin-right: 30px;
+}
+
+.ultimos-episodios div {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.ultimos-episodios div article{
+  height: 100px;
+  background-color: #000000;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+@media (max-width: 770px) {
+  html{
+    font-size: 50%;
+  }
+  .header-desktop {
+    display: none;
+  }
+  .header-mobile {
+    display: flex;
+  }
+  .ultimos-episodios div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 320px) {
+  
+  .ultimos-episodios div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  
+  .container {
+    max-width: 1000px;
+  }
+}
