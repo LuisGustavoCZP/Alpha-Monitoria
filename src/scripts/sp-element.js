@@ -28,6 +28,23 @@ class SinglePageElement extends HTMLElement
         window.spe = this;
     }
 
+    runScripts ()
+    {
+        const sps = this.main.getElementsByTagName('script');
+        console.log(sps);
+        for(const sp of sps)
+        {
+            sp.remove();
+            const cont = sp.innerText;
+            const csrc = sp.src;
+            const nscr = document.createElement("script");
+            if(cont) nscr.innerText = cont;
+            if(csrc) nscr.src = csrc;
+            this.main.append(nscr);
+            //console.log("Trocando", sp, "por", nscr)
+        }
+    }
+
     /**
     * @param {String} _path
     */
@@ -47,17 +64,16 @@ class SinglePageElement extends HTMLElement
         {
             this.classList.add(_source.title.toLowerCase());
             this.title.innerHTML = _source.title;
-            if(resp) this.main.innerHTML = resp;
-            
-            /* const sps = this.main.getElementsByTagName('script');
-            sps.forEach(element => {
-                 
-            }); */
+            if(resp) 
+            {
+                this.main.innerHTML = resp;
+                this.runScripts ();
+            }
 
             console.log("Carregado com sucesso!");
         })
         .catch(err => {
-            console.log("Page can not be loaded!");
+            console.log("Page can not be loaded!", err);
             this.hidden = true;
         });
     } 
