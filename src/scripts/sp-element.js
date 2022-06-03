@@ -28,20 +28,30 @@ class SinglePageElement extends HTMLElement
         window.spe = this;
     }
 
-    runScripts ()
+    removeScripts (scripts)
     {
-        const sps = this.main.getElementsByTagName('script');
-        console.log(sps);
-        for(const sp of sps)
+        if(!scripts) return;
+        for(const sp of scripts)
         {
+            console.log("Deletando", sp);
             sp.remove();
+        }
+    }
+
+    runScripts (scripts)
+    {
+        if(!scripts) return;
+        for(const sp of scripts)
+        {
             const cont = sp.innerText;
             const csrc = sp.src;
             const nscr = document.createElement("script");
+            
             if(cont) nscr.innerText = cont;
             if(csrc) nscr.src = csrc;
+
             this.main.append(nscr);
-            //console.log("Trocando", sp, "por", nscr)
+            console.log("Trocando", sp, "por", nscr);
         }
     }
 
@@ -66,8 +76,13 @@ class SinglePageElement extends HTMLElement
             this.title.innerHTML = _source.title;
             if(resp) 
             {
-                this.main.innerHTML = resp;
-                this.runScripts ();
+                const p = document.createElement("div");
+                p.innerHTML = resp;
+                const scriptsC = p.getElementsByTagName('script');
+                const scripts = Object.values(scriptsC);
+                this.removeScripts(scripts);
+                this.main.innerHTML = p.innerHTML;
+                this.runScripts (scripts);
             }
 
             console.log("Carregado com sucesso!");
