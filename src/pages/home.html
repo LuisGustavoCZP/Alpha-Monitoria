@@ -5,23 +5,112 @@
         padding: 20px;
         max-width: calc(100% - 40px);
     }
+
     strong {
         color: brown;
         text-shadow: 1px 1px 1px black;
     }
+
     p {
         max-width: 100%;
         flex-wrap: wrap;
         word-wrap: break-word;
     }
+
+    .welcome {
+        padding: 30px;
+    }
+
     .welcome > p 
     {
         width: 100%;
         text-align: center;
         font-size: 150%;
     }
+
+    h3 {
+        margin-top: 30px;
+        font-size: 1.5em;
+        text-shadow: 1px 1px 1px white;
+    }
+
+    main > div {
+        display: flex;
+        flex-direction: row;
+    }
 </style>
-<section class="welcome">
-    <p>Seja bem vindo a monitoria da <strong>Turma 10</strong>!!! 🎉</p> 
-    <p>Fique a vontade para explorar o site que fizemos para você! 😉</p>    
+<div>
+    <section class="welcome">
+        <p>Seja bem vindo a monitoria da <strong>Turma 10</strong>!!! 🎉</p> 
+        <p>Fique a vontade para explorar o site que fizemos para você! 😉</p>    
+        <p>Hoje <a id="today-staff"></a> está disponivel para monitoria!</p>
+    </section>
+    <aside>
+        <form-sheet url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas">
+            <fieldset>
+                <legend>Tire sua dúvida</legend>
+                <div>
+                    <textarea name="Duvida" placeholder="Duvida" required id="" cols="45" rows="5" maxlength="200"></textarea>
+                    <span>
+                        <label for="aluno">Aluno</label>
+                        <input id="aluno" name="Aluno" type="text" placeholder="Seu nome" required>
+                    </span>
+                    <span>
+                        <label for="trilha">Trilha</label>
+                        <input id="trilha" name="Trilha" type="text" placeholder="Tilha" required>
+                    </span>
+                </div>
+                <button id="submit" type="submit">Enviar</button>
+            </fieldset>
+        </form-sheet>
+    </aside>
+</div>
+<section class="news">
+    <h3>Novidades</h3>
+    <ul id="news-container">
+
+    </ul>
 </section>
+<script>
+    console.log("Running! 2");
+    const todayStaff = document.getElementById("today-staff");
+    fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Monitores")
+    .then(resp => resp.json())
+    .then(resp => 
+    {
+        const now = new Date();
+        console.log("Montoria atualizada", resp);
+        
+        const tstaff = resp[now.getDay()+1];
+        console.log("Hoje", tstaff);
+
+        if(tstaff.Nome)
+        {
+            todayStaff.innerText = tstaff.Nome;
+            todayStaff.href = tstaff.Link;
+        }
+        else 
+        {
+            todayStaff.innerText = "ninguem";
+            todayStaff.href = undefined;
+            
+        }
+        
+        
+    })
+    .catch(err => console.log(err));
+
+    const newsContainer = document.getElementById("news");
+    fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Novidades")
+    .then(resp => resp.json())
+    .then(resp => 
+    {
+        console.log("Novidades atualizada", resp);
+        resp.forEach(element => {
+            const p = document.createElement("li");
+            p.innerText = element.Duvida;
+            newsContainer.append(p);
+        });
+    })
+    .catch(err => console.log(err));
+</script>

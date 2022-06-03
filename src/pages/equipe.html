@@ -1,32 +1,23 @@
-<form-sheet url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec">
-    <fieldset>
-        <legend>Tire sua dúvida</legend>
-        <div>
-            <textarea name="Duvida" placeholder="Duvida" required id="" cols="45" rows="5" maxlength="200"></textarea>
-            <div>
-                <input name="Trilha" type="text" placeholder="Tilha" required>
-                <input name="Aluno" type="text" placeholder="Seu nome" required>
-            </div>
-        </div>
-        <button id="submit" type="submit">Enviar</button>
-    </fieldset>
-</form-sheet>
-<ol id="perguntas" style="margin:10px; padding:30px; background-color: black; color: white;"></ol>
-<script>
-    console.log("Running! 2");
-    const perguntasContainer = document.getElementById("perguntas");
+<style>
 
-    fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec")
-    .then(resp => resp.json())
-    .then(resp => 
-    {
-        console.log("Recebido", resp);
-        resp.forEach(element => {
-            const p = document.createElement("li");
-            p.innerText = element.Duvida;
-            perguntasContainer.append(p);
-        });
-    })
-    .catch(err => console.log(err));
-</script>
-<script src="./src/scripts/teste.js"></script>
+</style>
+<section>
+    <ol id="perguntas" style="margin:10px; padding:30px; background-color: black; color: white;"></ol>
+    <script>
+        console.log("Running! 2");
+        const perguntasContainer = document.getElementById("perguntas");
+    
+        fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec")
+        .then(resp => resp.json())
+        .then(resp => 
+        {
+            console.log("Recebido", resp);
+            resp.forEach(element => {
+                const p = document.createElement("li");
+                p.innerText = element.Duvida;
+                perguntasContainer.append(p);
+            });
+        })
+        .catch(err => console.log(err));
+    </script>
+</section>

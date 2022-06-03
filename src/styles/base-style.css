@@ -1,0 +1,47 @@
+form {
+    margin: 10px;
+    width: fit-content;
+}
+
+form > fieldset {
+    padding: 10px;
+}
+
+form textarea {
+    resize: none;
+    padding: 5px;
+    background-color: whitesmoke;
+}
+
+form input {
+    padding: 5px;
+    background-color: whitesmoke;
+}
+
+form button {
+    margin-top: 10px;
+    width: 100%;
+}
+
+form span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+form span > label 
+{
+    width: 30%;
+}
+
+form span > input 
+{
+    width: 70%;
+}
+
+a[href=undefined]{
+    pointer-events: none;
+    text-decoration: none;
+    color: red;
+}
