@@ -48,6 +48,12 @@ class SinglePageElement extends HTMLElement
             this.classList.add(_source.title.toLowerCase());
             this.title.innerHTML = _source.title;
             if(resp) this.main.innerHTML = resp;
+            
+            /* const sps = this.main.getElementsByTagName('script');
+            sps.forEach(element => {
+                 
+            }); */
+
             console.log("Carregado com sucesso!");
         })
         .catch(err => {
