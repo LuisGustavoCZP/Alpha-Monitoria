@@ -47,7 +47,7 @@ class SinglePageElement extends HTMLElement
             const csrc = sp.src;
             const nscr = document.createElement("script");
             
-            if(cont) nscr.innerText = cont;
+            if(cont) nscr.innerText = `(() => {${cont}})()`;
             if(csrc) nscr.src = csrc;
 
             this.main.append(nscr);

@@ -15,12 +15,11 @@
 <script>
     console.log("Running! 2");
     const perguntasContainer = document.getElementById("perguntas");
-    const url = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
-    fetch(url)
+
+    fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec")
     .then(resp => resp.json())
     .then(resp => 
     {
-        
         console.log("Recebido", resp);
         resp.forEach(element => {
             const p = document.createElement("li");
