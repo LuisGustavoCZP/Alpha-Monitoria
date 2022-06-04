@@ -2,22 +2,19 @@
 
 </style>
 <section>
-    <ol id="perguntas" style="margin:10px; padding:30px; background-color: black; color: white;"></ol>
+    <ol id="monitores" style="margin:10px; padding:30px; background-color: black; color: white;"></ol>
     <script>
         console.log("Running! 2");
-        const perguntasContainer = document.getElementById("perguntas");
+        const monitoresContainer = document.getElementById("monitores");
     
-        fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec")
-        .then(resp => resp.json())
-        .then(resp => 
+        monitores.forEach(element => 
         {
-            console.log("Recebido", resp);
-            resp.forEach(element => {
-                const p = document.createElement("li");
-                p.innerText = element.Duvida;
-                perguntasContainer.append(p);
-            });
-        })
-        .catch(err => console.log(err));
+            const p = document.createElement("li");
+            const a = document.createElement("a");
+            a.innerText = element.Nome;
+            a.href = element.Link;
+            p.append(a);
+            monitoresContainer.append(p);
+        });
     </script>
 </section>

@@ -60,7 +60,6 @@ class SinglePageElement extends HTMLElement
     */
     set src (_source)
     {
-        if(this.src && this.src.Titulo) this.classList.remove(this.src.Titulo.toLowerCase());
         this.main.innerHTML = "";
         this.#src = _source;
         const isBlank = !_source || _source == "";
@@ -72,9 +71,10 @@ class SinglePageElement extends HTMLElement
         .then(resp => resp.text())
         .then(resp => 
         {
+            if(!this.src) throw new Error("Page not exist!");
+
             if(this.src.Titulo) 
             {
-                this.classList.add(_source.Titulo.toLowerCase());
                 this.title.innerHTML = _source.Titulo;
             }
             if(resp) 
