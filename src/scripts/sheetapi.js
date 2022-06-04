@@ -39,6 +39,21 @@ async function iniciar ()
     
     p.append(navlink);
     navlink.setAttribute("menu", "main");
+
+    
+    window.addEventListener('popstate', changePage);
+    if(window.location.hash)
+    {    
+        changePage();
+    }
+}
+
+function changePage ()
+{
+    const h = window.location.hash.replace("#", "");
+    console.log("mudou para " + h);
+    const path = h.split(".");
+    spe.src = window.menus[path[0]][path[1]];
 }
 
 iniciar ();

@@ -55,7 +55,7 @@ class NavLink extends HTMLElement
             if(first)
             {
                 first = false;
-                window.location.hash = `#${id}`;
+                if(!window.location.hash) window.location.hash = `#${id}`;
                 //change(id);
             }
             this.containerEl.innerHTML += `<li><a title="${source.Desc}" href="#${id}">${source.Titulo}</a></li>`;
@@ -67,18 +67,5 @@ class NavLink extends HTMLElement
         return this.#menu;
     }
 }
-
-function change (_id)
-{
-    const path = _id.split(".");
-    spe.src = window.menus[path[0]][path[1]];
-}
-
-window.addEventListener('popstate', ()=>
-{
-    const h = window.location.hash.replace("#", "");
-    console.log("mudou para " + h);
-    change(h);
-});
 
 NavLink.define();
