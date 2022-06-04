@@ -1,6 +1,0 @@
-[
-    {"title":"Home", "link":"./src/pages/home.html", "desc":"Informações gerais"},
-    {"title":"Aulas", "link":"./src/pages/aulas.html", "desc":"Exemplos e Mentorias gravadas"},
-    {"title":"Referencias", "link":"./src/pages/referencias.html", "desc":"Links e exemplos"},
-    {"title":"Equipe", "link":"./src/pages/equipe.html", "desc":"Contato da equipe de monitores"}
-]

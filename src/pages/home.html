@@ -2,29 +2,44 @@
     main {
         justify-content: flex-start;
         align-items: center;
-        flex-wrap: wrap;
-        padding: 20px;
-        max-width: calc(100% - 40px);
+        flex-direction: column;
+        padding: 2%;
+        max-width: 100%;
+        height: fit-content;
+        /* overflow: hidden; */
     }
 
     strong {
         color: brown;
         text-shadow: 1px 1px 1px black;
+        flex-wrap: nowrap;
+        word-wrap: unset;
+        white-space: nowrap;
     }
 
     p {
+        
         max-width: 100%;
         flex-wrap: wrap;
         word-wrap: break-word;
+        white-space: normal;
     }
 
     .welcome {
-        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        min-width: min-content;
+        width: max-content;
+
+        max-height: min-content;
+        justify-content: center;
+        align-items: center;
+        padding: 4%;
     }
 
-    .welcome > p 
-    {
-        width: 100%;
+    .welcome > p {
+        min-width: min-content;
+        max-width: max-content;
         text-align: center;
         font-size: 150%;
     }
@@ -37,7 +52,10 @@
 
     main > div {
         display: flex;
+        width: 100%;
         flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 </style>
 <div>
@@ -51,7 +69,7 @@
             <fieldset>
                 <legend>Tire sua dúvida</legend>
                 <div>
-                    <textarea name="Duvida" placeholder="Duvida" required id="" cols="45" rows="5" maxlength="200"></textarea>
+                    <textarea name="Duvida" placeholder="Duvida" required id="" maxlength="200"></textarea>
                     <span>
                         <label for="aluno">Aluno</label>
                         <input id="aluno" name="Aluno" type="text" placeholder="Seu nome" required>
@@ -68,9 +86,7 @@
 </div>
 <section class="news">
     <h3>Novidades</h3>
-    <ul id="news-container">
-
-    </ul>
+    <ul id="news-container"></ul>
 </section>
 <script>
     console.log("Running! 2");
