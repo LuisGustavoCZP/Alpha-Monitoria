@@ -2,6 +2,7 @@
     main {
         justify-content: flex-start;
         align-items: center;
+        flex-wrap: wrap;
         padding: 20px;
         max-width: calc(100% - 40px);
     }
@@ -92,16 +93,22 @@
         }
     }
 
-    const newsContainer = document.getElementById("news");
+    const newsContainer = document.getElementById("news-container");
     fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Novidades")
     .then(resp => resp.json())
     .then(resp => 
     {
         console.log("Novidades atualizada", resp);
-        resp.forEach(element => {
-            const p = document.createElement("li");
-            p.innerText = element.Duvida;
-            newsContainer.append(p);
+        resp.forEach(element => 
+        {
+            const li = document.createElement("li");
+            const he = document.createElement("h4");
+            he.innerText = element.Titulo;
+            const p = document.createElement("p");
+            p.innerText = element.Info;
+            li.append(he);
+            li.append(p);
+            newsContainer.append(li);
         });
     })
     .catch(err => console.log(err));
