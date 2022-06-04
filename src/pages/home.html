@@ -74,17 +74,13 @@
 <script>
     console.log("Running! 2");
     const todayStaff = document.getElementById("today-staff");
-    fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Monitores")
-    .then(resp => resp.json())
-    .then(resp => 
-    {
-        const now = new Date();
-        console.log("Montoria atualizada", resp);
-        
-        const tstaff = resp[now.getDay()+1];
-        console.log("Hoje", tstaff);
+    const now = new Date();
 
-        if(tstaff.Nome)
+    if(monitores.length > 0)
+    {
+        const tstaff = monitores[now.getDay()];
+        console.log("Hoje", tstaff);
+        if(tstaff && tstaff.Nome)
         {
             todayStaff.innerText = tstaff.Nome;
             todayStaff.href = tstaff.Link;
@@ -93,12 +89,8 @@
         {
             todayStaff.innerText = "ninguem";
             todayStaff.href = undefined;
-            
         }
-        
-        
-    })
-    .catch(err => console.log(err));
+    }
 
     const newsContainer = document.getElementById("news");
     fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Novidades")

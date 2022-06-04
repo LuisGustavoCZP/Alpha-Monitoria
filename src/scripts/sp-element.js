@@ -22,7 +22,7 @@ class SinglePageElement extends HTMLElement
         if(this.hasAttribute('src')) 
         {
             //console.log("Tem source!");
-            this.src = this.getAttribute('src');
+            this.src = { Link:this.getAttribute('src') };
         }
         
         window.spe = this;
@@ -60,7 +60,7 @@ class SinglePageElement extends HTMLElement
     */
     set src (_source)
     {
-        if(this.src) this.classList.remove(this.src.title.toLowerCase());
+        if(this.src && this.src.Titulo) this.classList.remove(this.src.Titulo.toLowerCase());
         this.main.innerHTML = "";
         this.#src = _source;
         const isBlank = !_source || _source == "";
@@ -68,12 +68,15 @@ class SinglePageElement extends HTMLElement
         //console.log("Carregando!");
         if(isBlank) { this.hidden = true; return;} else { this.hidden = false; }
         
-        fetch(_source.link)
+        fetch(_source.Link)
         .then(resp => resp.text())
         .then(resp => 
         {
-            this.classList.add(_source.title.toLowerCase());
-            this.title.innerHTML = _source.title;
+            if(this.src.Titulo) 
+            {
+                this.classList.add(_source.Titulo.toLowerCase());
+                this.title.innerHTML = _source.Titulo;
+            }
             if(resp) 
             {
                 const p = document.createElement("div");

@@ -2,9 +2,8 @@ import spelement from './sp-element.js';
 
 class NavLink extends HTMLElement 
 {
-    #src;
+    #menu;
     containerEl = null;
-    hash = null;
     sources = [];
 
     static define ()
@@ -12,72 +11,74 @@ class NavLink extends HTMLElement
         customElements.define('nav-link', NavLink);
     }
 
-    constructor()
+    constructor(...args)
     {
-        self = super();
+        self = super(...args);// 
 
-        this.containerEl = document.createElement("ul");
-        const nav = document.createElement("nav");
-        this.append(nav);
-        nav.append(this.containerEl);
-
-        if(this.hasAttribute('src')) 
-        {
-            this.src = this.getAttribute('src');
-        }
-        
-        window.addEventListener('popstate', ()=>
-        {
-            const h = window.location.hash;
-            console.log("mudou para " + h);
-            this.change(h);
-        });
+        if(this.parentElement) this.start();
+        else setTimeout(()=>{this.start()}, 100);
     }
 
-    change (_id)
+    start ()
     {
-        this.hash = _id;
-        spe.src = this.sources[_id];
+        this.containerEl = document.createElement("ul");
+        const nav = document.createElement("nav");
+        nav.append(this.containerEl);
+        this.append(nav);
+
+        if(this.hasAttribute('menu')) 
+        {
+            this.menu = this.getAttribute('menu');
+        }
     }
 
     /**
     * @param {String} _path
     */
-    set src (_path)
+    set menu (_path)
     {
-        this.#src = _path;
+        this.#menu = _path;
         const isBlank = !_path || _path == "";
         
         //console.log("Carregando!");
         if(isBlank) { this.hidden = true; return;} else { this.hidden = false; }
         
-        fetch(_path)
-        .then(resp => resp.json())
-        .then(resp => {
-            this.containerEl.innerHTML = "";
-            this.sources = {};
-            resp.forEach((element) => 
+        this.containerEl.innerHTML = "";
+        this.sources = window.menus[this.menu];
+        console.log(this.sources);
+        let first = true;
+        for(const sourceid in this.sources) 
+        {
+            const source = this.sources[sourceid];
+            console.log(sourceid, source);
+            const id = `${source.Menu}.${source.ID}`;
+            if(first)
             {
-                const id = `#${element.title.toLowerCase()}`;
-                this.sources[id] = element;
-                this.containerEl.innerHTML += `<li><a title="${element.desc}" href="${id}">${element.title}</a></li>`;
-            });
-            //this.innerHTML = resp;
-            const h = window.location.hash;
-            if(h) this.change(h);
-            else if(resp.length > 0) this.change(`#${resp[0].title.toLowerCase()}`);
-            console.log("Carregado com sucesso!", resp);
-        })
-        .catch(err => {
-            console.log("Page can not be loaded!");
-            this.hidden = true;
-        });
+                first = false;
+                window.location.hash = `#${id}`;
+                //change(id);
+            }
+            this.containerEl.innerHTML += `<li><a title="${source.Desc}" href="#${id}">${source.Titulo}</a></li>`;
+        }
     } 
 
-    get src ()
+    get menu ()
     {
-        return this.#src;
+        return this.#menu;
     }
 }
+
+function change (_id)
+{
+    const path = _id.split(".");
+    spe.src = window.menus[path[0]][path[1]];
+}
+
+window.addEventListener('popstate', ()=>
+{
+    const h = window.location.hash.replace("#", "");
+    console.log("mudou para " + h);
+    change(h);
+});
 
 NavLink.define();
