@@ -35,7 +35,7 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const userModel = new User(req.User_id)
+      const userModel = new User()
       const result = await userModel.edit(req.id, req.body.password
         ? {
             ...req.body,
@@ -51,7 +51,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     try {
-      const userModel = new User(req.User_id)
+      const userModel = new User()
       const result = await userModel.delete(req.id)
       res.status(200).json(result)
     } catch (e) {

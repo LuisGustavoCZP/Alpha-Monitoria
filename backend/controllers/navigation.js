@@ -32,7 +32,7 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const navegacaoModel = new Navegacao(req.Navegacao_id)
+      const navegacaoModel = new Navegacao()
       const result = await navegacaoModel.edit(req.id, {
         ...req.body
       })
@@ -43,7 +43,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     try {
-      const navegacaoModel = new Navegacao(req.Navegacao_id)
+      const navegacaoModel = new Navegacao()
       const result = await navegacaoModel.delete(req.id)
       res.status(200).json(result)
     } catch (e) {

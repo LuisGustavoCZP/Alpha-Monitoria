@@ -32,7 +32,7 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const novidadeModel = new Novidade(req.Novidade_id)
+      const novidadeModel = new Novidade()
       const result = await novidadeModel.edit(req.id, {
         ...req.body
       })
@@ -43,7 +43,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     try {
-      const novidadeModel = new Novidade(req.Novidade_id)
+      const novidadeModel = new Novidade()
       const result = await novidadeModel.delete(req.id)
       res.status(200).json(result)
     } catch (e) {

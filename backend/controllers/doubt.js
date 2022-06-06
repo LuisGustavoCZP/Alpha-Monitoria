@@ -32,7 +32,7 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const duvidaModel = new Duvida(req.user_id)
+      const duvidaModel = new Duvida()
       const result = await duvidaModel.edit(req.id, {
         ...req.body
       })
@@ -43,7 +43,7 @@ module.exports = {
   },
   delete: async function (req, res) {
     try {
-      const duvidaModel = new Duvida(req.user_id)
+      const duvidaModel = new Duvida()
       const result = await duvidaModel.delete(req.id)
       res.status(200).json(result)
     } catch (e) {
