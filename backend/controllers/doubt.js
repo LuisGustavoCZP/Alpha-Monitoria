@@ -1,4 +1,4 @@
-const Duvida = require('../models/duvida')
+const Duvida = require('../models/doubt')
 
 module.exports = {
   list: async function (req, res) {

@@ -10,9 +10,9 @@ router.get('/', NewsController.list)
 
 router.get('/:id', VerifyIdMiddleware, NewsController.getOne)
 
-router.post('/', validation.validateCreate, NewsController.create)
+router.post('/', /* validation.validateCreate, */ NewsController.create)
 
-router.put('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, validation.validateUpdate, NewsController.update)
+router.put('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validation.validateUpdate, */ NewsController.update)
 
 router.delete('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, NewsController.delete)
 

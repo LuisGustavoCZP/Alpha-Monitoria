@@ -1,4 +1,4 @@
-const Navegacao = require('../models/navegacao')
+const Navegacao = require('../models/navigation')
 
 module.exports = {
   list: async function (req, res) {
