@@ -1,0 +1,100 @@
+<style>
+    main {
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        padding: 2%;
+        max-width: 100%;
+        height: fit-content;
+        /* overflow: hidden; */
+    }
+
+    main > div {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    main section {
+        display: flex;
+        flex-direction: column;
+        margin-left: 30px;
+        align-items: center;
+        /* justify-content: center; */
+        width: 100%;
+    }
+</style>
+<div>
+    <section>
+        <form-sheet url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas">
+            <fieldset>
+                <legend>Tire sua dúvida</legend>
+                <div>
+                    <textarea name="Duvida" placeholder="Duvida" required id="" maxlength="200"></textarea>
+                    <span>
+                        <label for="aluno">Aluno</label>
+                        <input id="aluno" name="Aluno" type="text" placeholder="Seu nome" required>
+                    </span>
+                    <span>
+                        <label for="trilha">Trilha</label>
+                        <select name="Trilha" id="trilha" required></select>
+                    </span>
+                </div>
+                <button id="submit" type="submit">Enviar</button>
+            </fieldset>
+        </form-sheet> 
+    </section>
+    <section>
+        <span>
+            <h3>Duvidas</h3>
+            <select id="categoria"></select>
+        </span>
+        <ul id="duvidas"></ul>
+    </section>
+</div>
+<script>
+
+    function createOption (title, value, selected=false)
+    {
+        const op = document.createElement("option");
+        op.innerText = title;
+        op.value = value;
+        if(selected) op.selected = true;
+        return op;
+    }
+
+    const categoriaSelector = document.getElementById("categoria");
+    categoriaSelector.append(createOption("Todos", "all", true));
+
+    const trilhaSelector = document.getElementById("trilha");
+    for(const ok in window.trilhas) 
+    {
+        const trilha = window.trilhas[ok];
+
+        trilhaSelector.append(createOption(trilha.Nome, trilha.ID));
+        categoriaSelector.append(createOption(trilha.Nome, trilha.ID));
+    };
+
+    const duvidasContent = document.getElementById("duvidas");
+    function loadDuvidas ()
+    {
+        duvidasContent.innerHTML = "";
+        window.duvidas.forEach(duvida => 
+        {
+            if(categoriaSelector.value == "all" || categoriaSelector.value == duvida.Trilha)
+            {
+                const li = document.createElement("li");
+                const op = document.createElement("p");
+                const h4 = document.createElement("h4");
+                const trilha = window.trilhas[duvida.Trilha];
+                h4.innerText = trilha.Nome;
+                op.innerText = duvida.Duvida;
+                li.append(h4);
+                li.append(op);
+                duvidasContent.append(li);
+            }
+        });
+    }
+    categoriaSelector.onchange = loadDuvidas;
+    loadDuvidas ();
+</script>

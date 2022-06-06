@@ -2,11 +2,25 @@ window.monitores = [];
 
 async function iniciar ()
 {
+    window.trilhas = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Trilhas")
+    .then(resp => resp.json())
+    .then(resp => 
+    {
+        console.log("Trilhas atualizada", resp);
+        
+        return Object.fromEntries(
+            resp.map(object => {
+              return [object.ID, object];
+            }),
+        );
+    })
+    .catch(err => console.log(err));
+    console.log(window.trilhas);
+
     window.menus = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Navigation")
     .then(resp => resp.json())
     .then(resp => 
     {
-        
         const menus = {};
         for(let n of resp)
         {
@@ -33,12 +47,21 @@ async function iniciar ()
     })
     .catch(err => console.log(err));
 
+    window.duvidas = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas")
+    .then(resp => resp.json())
+    .then(resp => 
+    {
+        console.log("Duvidas atualizada", resp);
+        return resp;
+    })
+    .catch(err => console.log(err));
+
     const p = document.querySelector("body > header");
     console.log(p);
     const navlink = document.createElement("nav-link");
     
     p.append(navlink);
-    navlink.setAttribute("menu", "main");
+    navlink.setAttribute("menu", "monitor");
 
     
     window.addEventListener('popstate', changePage);

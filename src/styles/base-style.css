@@ -43,6 +43,11 @@ form span > input
     width: 70%;
 }
 
+form span > select
+{
+    width: 70%;
+}
+
 a[href=undefined]{
     pointer-events: none;
     text-decoration: none;
