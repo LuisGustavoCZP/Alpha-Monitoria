@@ -2,7 +2,6 @@ const express = require('express')
 const NewsController = require('../controllers/news')
 const AutorizationMiddleware = require('../middlewares/autorization')
 const VerifyIdMiddleware = require('../middlewares/verifyId')
-const validation = require('../middlewares/validations')
 
 const router = express.Router()
 
