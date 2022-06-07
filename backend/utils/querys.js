@@ -24,7 +24,7 @@ async function updateQuery (client, table, id, body, userId) {
     fields.push(`${keys[i][0]}=$${i + 1}`)
     values.push(keys[i][1])
   }
-  const query = `UPDATE ${table} SET ${fields.join(',')}${keys.length > 0 ? ',' : ''}update_at=CURRENT_TIMESTAMP,update_by=$${values.length + 1} WHERE id=$${values.length + 2} RETURNING *`
+  const query = `UPDATE ${table} SET ${fields.join(',')}${keys.length > 0 ? ',' : ''}updated_at=CURRENT_TIMESTAMP,updated_by=$${values.length + 1} WHERE id=$${values.length + 2} RETURNING *`
   values.push(userId)
   values.push(id)
   const result = await client.query(query, values)
@@ -32,7 +32,7 @@ async function updateQuery (client, table, id, body, userId) {
 }
 
 async function deleteQuery (client, table, id, userId) {
-  const query = `UPDATE ${table} SET delete_at=CURRENT_TIMESTAMP,delete_by=$1 WHERE id=$2 RETURNING *`
+  const query = `UPDATE ${table} SET deleted_at=CURRENT_TIMESTAMP,deleted_by=$1 WHERE id=$2 RETURNING *`
   const result = await client.query(query, [userId, id])
   return result.rows
 }
@@ -47,7 +47,7 @@ async function createQuery (client, table, body, userId) {
     positions.push(`$${i + 1}`)
     values.push(keys[i][1])
   }
-  const query = `INSERT INTO ${table} (${fields.join(',')}${keys.length > 0 ? ',' : ''}create_at,create_by) VALUES (${positions.join(',')},CURRENT_TIMESTAMP,$${values.length + 1})  RETURNING *`
+  const query = `INSERT INTO ${table} (${fields.join(',')}${keys.length > 0 ? ',' : ''}created_at,created_by) VALUES (${positions.join(',')},CURRENT_TIMESTAMP,$${values.length + 1})  RETURNING *`
   values.push(userId)
   const result = await client.query(query, values)
   return result.rows
