@@ -1,5 +1,5 @@
 module.exports = {
-  SERVER_PORT: 3333,
+  SERVER_PORT: parseInt(process.env.SERVER_PORT),
   API_VERSION: '1.0.0',
   DATABASE_PORT: parseInt(process.env.DATABASE_PORT, 10),
   DATABASE_HOST: process.env.DATABASE_HOST,
