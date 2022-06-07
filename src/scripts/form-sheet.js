@@ -34,8 +34,9 @@ class FormSheetElement extends HTMLElement
     submit () 
     {
         if(!this.url) return;
-        console.log("Sending form")
-        fetch(this.url, { method: 'POST', body: new FormData(this.form) })
+        const formData = new FormData(this.form);
+        console.log("Sending form", formData.entries())
+        fetch(this.url, { method: 'POST', body: formData })
         .then(response => { console.log('Success!', response) })
         .catch(error => console.log('Error!', error.message))
 
