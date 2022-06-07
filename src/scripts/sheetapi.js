@@ -1,8 +1,9 @@
 window.monitores = [];
+window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
 
 async function iniciar ()
 {
-    window.trilhas = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Trilhas")
+    window.trilhas = await fetch(`${window.api}?sheet=Trilhas`)
     .then(resp => resp.json())
     .then(resp => 
     {
@@ -10,27 +11,27 @@ async function iniciar ()
         
         return Object.fromEntries(
             resp.map(object => {
-              return [object.ID, object];
+              return [object.name, object];
             }),
         );
     })
     .catch(err => console.log(err));
     console.log(window.trilhas);
 
-    window.menus = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Navigation")
+    window.menus = await fetch(`${window.api}?sheet=Navigation`)
     .then(resp => resp.json())
     .then(resp => 
     {
         const menus = {};
         for(let n of resp)
         {
-            let m = menus[n.Menu];
+            let m = menus[n.menu];
             if(!m)
             {
                 m = {};
-                menus[n.Menu] = m;
+                menus[n.menu] = m;
             }
-            m[n.ID] = n;
+            m[n.name] = n;
         }
 
         console.log("Navigation atualizada", resp, " to ", menus);
@@ -38,20 +39,11 @@ async function iniciar ()
     })
     .catch(err => console.log(err));
 
-    window.monitores = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Monitores")
+    window.monitores = await fetch(`${window.api}?sheet=Monitores`)
     .then(resp => resp.json())
     .then(resp => 
     {
         console.log("Montoria atualizada", resp);
-        return resp;
-    })
-    .catch(err => console.log(err));
-
-    window.duvidas = await fetch("https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas")
-    .then(resp => resp.json())
-    .then(resp => 
-    {
-        console.log("Duvidas atualizada", resp);
         return resp;
     })
     .catch(err => console.log(err));
@@ -61,9 +53,8 @@ async function iniciar ()
     const navlink = document.createElement("nav-link");
     
     p.append(navlink);
-    navlink.setAttribute("menu", "monitor");
+    navlink.setAttribute("menu", "main");
 
-    
     window.addEventListener('popstate', changePage);
     if(window.location.hash)
     {    

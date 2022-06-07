@@ -1,0 +1,85 @@
+<style>
+    main {
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        padding: 2%;
+        max-width: 100%;
+        height: fit-content;
+        /* overflow: hidden; */
+    }
+
+    main > div {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    main section {
+        display: flex;
+        flex-direction: column;
+        margin-left: 30px;
+        align-items: center;
+        /* justify-content: center; */
+        width: 100%;
+    }
+
+    form-sheet {
+        width: 70%;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    form span {
+        margin-top: 10px;
+    }
+
+    form span > :not(label) 
+    {
+        padding: 10px;
+    }
+</style>
+<div>
+    <section>
+        <form-sheet url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Revisoes">
+            <fieldset>
+                <legend>Mande uma tarefa para revisão</legend>
+                <div>
+                    <span>
+                        <label for="trail">Trilha</label>
+                        <select name="trail" id="trail" required></select>
+                    </span>
+                    <span>
+                        <label for="gitrepo">Github</label>
+                        <input id="gitrepo" name="repo_url" type="text" placeholder="O link do repositorio GitHub" required>
+                    </span>
+                    <span>
+                        <label for="aluno">Aluno</label>
+                        <input id="aluno" name="requester" type="text" placeholder="Seu nome" required>
+                    </span>
+                </div>
+                <button id="submit" type="submit">Enviar</button>
+            </fieldset>
+        </form-sheet> 
+    </section>
+</div>
+<script>
+    function createOption (title, value, selected=false)
+    {
+        const op = document.createElement("option");
+        op.innerText = title;
+        op.value = value;
+        if(selected) op.selected = true;
+        return op;
+    }
+
+    const trilhaSelector = document.getElementById("trail");
+    for(const ok in window.trilhas) 
+    {
+        const trilha = window.trilhas[ok];
+
+        trilhaSelector.append(createOption(trilha.title, trilha.name));
+    };
+</script>

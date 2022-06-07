@@ -30,14 +30,14 @@
             <fieldset>
                 <legend>Tire sua dúvida</legend>
                 <div>
-                    <textarea name="Duvida" placeholder="Duvida" required id="" maxlength="200"></textarea>
+                    <textarea name="content" placeholder="Duvida" required id="" maxlength="200"></textarea>
                     <span>
                         <label for="aluno">Aluno</label>
-                        <input id="aluno" name="Aluno" type="text" placeholder="Seu nome" required>
+                        <input id="aluno" name="requester" type="text" placeholder="Seu nome" required>
                     </span>
                     <span>
                         <label for="trilha">Trilha</label>
-                        <select name="Trilha" id="trilha" required></select>
+                        <select name="trail" id="trilha" required></select>
                     </span>
                 </div>
                 <button id="submit" type="submit">Enviar</button>
@@ -53,7 +53,6 @@
     </section>
 </div>
 <script>
-
     function createOption (title, value, selected=false)
     {
         const op = document.createElement("option");
@@ -71,30 +70,56 @@
     {
         const trilha = window.trilhas[ok];
 
-        trilhaSelector.append(createOption(trilha.Nome, trilha.ID));
-        categoriaSelector.append(createOption(trilha.Nome, trilha.ID));
+        trilhaSelector.append(createOption(trilha.title, trilha.name));
+        categoriaSelector.append(createOption(trilha.title, trilha.name));
     };
 
-    const duvidasContent = document.getElementById("duvidas");
-    function loadDuvidas ()
+    async function loadDuvidas () 
     {
-        duvidasContent.innerHTML = "";
-        window.duvidas.forEach(duvida => 
+        window.duvidas = await fetch(`${window.api}?sheet=Duvidas`)
+        .then(resp => resp.json())
+        .then(resp => 
         {
-            if(categoriaSelector.value == "all" || categoriaSelector.value == duvida.Trilha)
+            console.log("Duvidas atualizada", resp);
+            return resp;
+        })
+        .catch(err => console.log(err));
+        const duvidasContent = document.getElementById("duvidas");
+        function filterDuvidas ()
+        {
+            duvidasContent.innerHTML = "";
+            window.duvidas.forEach((duvida, index) => 
             {
-                const li = document.createElement("li");
-                const op = document.createElement("p");
-                const h4 = document.createElement("h4");
-                const trilha = window.trilhas[duvida.Trilha];
-                h4.innerText = trilha.Nome;
-                op.innerText = duvida.Duvida;
-                li.append(h4);
-                li.append(op);
-                duvidasContent.append(li);
-            }
-        });
+                if(categoriaSelector.value == "all" || categoriaSelector.value == duvida.trail)
+                {
+                    const li = document.createElement("li");
+                    const op = document.createElement("p");
+                    const h4 = document.createElement("h4");
+                    const like = document.createElement("button");
+                    like.innerText = "👍";
+                    like.onclick = () => {
+                        const formData = new FormData();
+                        formData.append("voting","true");
+                        fetch(`${window.api}?sheet=Duvidas&index=${index+2}`,
+                        { method: 'POST', body: formData })
+                        .then(resp => resp.text())
+                        .then(resp => {console.log(resp)})
+
+                    };
+                    const trilha = window.trilhas[duvida.trail];
+                    h4.innerText = trilha.title;
+                    op.innerText = duvida.content;
+                    li.append(h4);
+                    li.append(op);
+                    li.append(like);
+                    duvidasContent.append(li);
+                }
+            });
+        }
+        
+        categoriaSelector.onchange = filterDuvidas;
+        filterDuvidas ();
     }
-    categoriaSelector.onchange = loadDuvidas;
+
     loadDuvidas ();
 </script>

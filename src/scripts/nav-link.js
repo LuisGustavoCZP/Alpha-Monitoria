@@ -14,13 +14,14 @@ class NavLink extends HTMLElement
     constructor(...args)
     {
         self = super(...args);// 
-
+        //if(this.containerEl) return;
         if(this.parentElement) this.start();
         else setTimeout(()=>{this.start()}, 100);
     }
 
     start ()
     {
+        this.innerHTML = "";
         this.containerEl = document.createElement("ul");
         const nav = document.createElement("nav");
         nav.append(this.containerEl);
@@ -51,14 +52,14 @@ class NavLink extends HTMLElement
         {
             const source = this.sources[sourceid];
             console.log(sourceid, source);
-            const id = `${source.Menu}.${source.ID}`;
+            const id = `${source.menu}.${source.name}`;
             if(first)
             {
                 first = false;
                 if(!window.location.hash) window.location.hash = `#${id}`;
                 //change(id);
             }
-            this.containerEl.innerHTML += `<li><a title="${source.Desc}" href="#${id}">${source.Titulo}</a></li>`;
+            this.containerEl.innerHTML += `<li><a title="${source.description}" href="#${id}">${source.title}</a></li>`;
         }
     } 
 

@@ -22,7 +22,7 @@ class SinglePageElement extends HTMLElement
         if(this.hasAttribute('src')) 
         {
             //console.log("Tem source!");
-            this.src = { Link:this.getAttribute('src') };
+            this.src = { path:this.getAttribute('src') };
         }
         
         window.spe = this;
@@ -67,15 +67,15 @@ class SinglePageElement extends HTMLElement
         //console.log("Carregando!");
         if(isBlank) { this.hidden = true; return;} else { this.hidden = false; }
         
-        fetch(_source.Link)
+        fetch(_source.path)
         .then(resp => resp.text())
         .then(resp => 
         {
             if(!this.src) throw new Error("Page not exist!");
 
-            if(this.src.Titulo) 
+            if(this.src.title) 
             {
-                this.title.innerHTML = _source.Titulo;
+                this.title.innerHTML = _source.title;
             }
             if(resp) 
             {
