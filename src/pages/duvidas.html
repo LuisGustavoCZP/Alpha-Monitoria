@@ -79,7 +79,7 @@
 </style>
 <div>
     <section>
-        <form-sheet url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas">
+        <form-sheet id="form-duvida" url="https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec?sheet=Duvidas">
             <fieldset>
                 <legend>Tire sua dúvida</legend>
                 <div>
@@ -93,7 +93,7 @@
                         <select name="trail" id="trilha" required></select>
                     </span>
                 </div>
-                <button id="submit-duvida" type="submit">Enviar</button>
+                <button type="submit">Enviar</button>
             </fieldset>
         </form-sheet> 
     </section>
@@ -108,8 +108,9 @@
     </section>
 </div>
 <script>
-    const sendDuvida = document.getElementById("submit-duvida");
+    const sendDuvida = document.getElementById("form-duvida");
     sendDuvida.addEventListener("submitsucess", () => {loadDuvidas ();});
+
     function createOption (title, value, selected=false)
     {
         const op = document.createElement("option");
