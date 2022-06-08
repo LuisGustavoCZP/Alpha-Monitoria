@@ -5,6 +5,15 @@
     box-sizing: border-box;
 }
 
+:root {
+    --color1: hsl(120, 73%, 75%);
+    --color2: hsl(190, 90%, 50%);
+    --color3: hsl(060, 73%, 75%);
+    --color-blank: whitesmoke;
+    --color-black: black;
+    --color-denied: red;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -18,7 +27,7 @@ header {
     width: 100%;
     justify-content: center;
     align-items: center;
-    background-color: hsl(120, 73%, 75%);
+    background-color: var(--color1);
 }
 
 header > h1 {
@@ -26,11 +35,11 @@ header > h1 {
     width: max-content;
     font-size: 300%;
     padding: 10px;
-    color: hsl(190, 90%, 50%);
+    color: var(--color2);
     max-width: 100%;
     justify-content: center;
     text-align: center;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 1px var(--color-black);
 }
 
 nav > ul {
@@ -51,14 +60,14 @@ sp-element {
     height: 100%;
     flex-direction: column;
     overflow-y: scroll;
-    background-color: hsl(60, 73%, 75%);
+    background-color: var(--color3);
 }
 
 sp-element > h2 {
     text-align: center;
     margin: 10px;
     font-size: 2em;
-    text-shadow: 1px 1px 1px white;
+    text-shadow: 1px 1px 1px var(--color-blank);
 }
 
 main {

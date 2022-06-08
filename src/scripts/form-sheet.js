@@ -2,6 +2,7 @@ class FormSheetElement extends HTMLElement
 {
     url;
     form = null;
+    eventSubmitSucess;
 
     static define ()
     {
@@ -23,7 +24,9 @@ class FormSheetElement extends HTMLElement
             //console.log("Tem source!");
             this.url = this.getAttribute('url');
         }
+        eventSubmitSucess = new Event('submitsucess');
         
+
         this.form.addEventListener('submit', e => 
         {
             e.preventDefault();
@@ -37,7 +40,11 @@ class FormSheetElement extends HTMLElement
         const formData = new FormData(this.form);
         console.log("Sending form", formData.entries())
         fetch(this.url, { method: 'POST', body: formData })
-        .then(response => { console.log('Success!', response) })
+        .then(response => 
+        { 
+            console.log('Success!', response);
+            this.dispatchEvent(eventSubmitSucess);
+        })
         .catch(error => console.log('Error!', error.message))
 
         this.form.reset();
