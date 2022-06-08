@@ -38,6 +38,7 @@ async function deleteQuery (client, table, id, userId) {
 }
 
 async function createQuery (client, table, body, userId) {
+  try {
   const keys = Object.entries(body)
   const fields = []
   const positions = []
@@ -51,6 +52,10 @@ async function createQuery (client, table, body, userId) {
   values.push(userId)
   const result = await client.query(query, values)
   return result.rows
+} catch( e ) {
+  console.log('lalala')
+  console.log(e)
+}
 }
 
 module.exports = {
