@@ -6,4 +6,4 @@
 
 2) Referencias: https://ravgeetdhillon.medium.com/turn-a-google-sheet-into-a-rest-api-b08f3fd641ad
 
-3) Codigo AppScript: [a relative link](googleapi/sheetapi.gs)
+3) Codigo AppScript: [Codigo](googleapi/sheetapi.gs)
