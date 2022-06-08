@@ -39,23 +39,23 @@ async function deleteQuery (client, table, id, userId) {
 
 async function createQuery (client, table, body, userId) {
   try {
-  const keys = Object.entries(body)
-  const fields = []
-  const positions = []
-  const values = []
-  for (let i = 0; i < keys.length; i++) {
-    fields.push(keys[i][0])
-    positions.push(`$${i + 1}`)
-    values.push(keys[i][1])
+    const keys = Object.entries(body)
+    const fields = []
+    const positions = []
+    const values = []
+    for (let i = 0; i < keys.length; i++) {
+      fields.push(keys[i][0])
+      positions.push(`$${i + 1}`)
+      values.push(keys[i][1])
+    }
+    const query = `INSERT INTO ${table} (${fields.join(',')}${keys.length > 0 ? ',' : ''}created_at,created_by) VALUES (${positions.join(',')},CURRENT_TIMESTAMP,$${values.length + 1})  RETURNING *`
+    values.push(userId)
+    const result = await client.query(query, values)
+    return result.rows
+  } catch( e ) {
+    console.log('lalala')
+    console.log(e)
   }
-  const query = `INSERT INTO ${table} (${fields.join(',')}${keys.length > 0 ? ',' : ''}created_at,created_by) VALUES (${positions.join(',')},CURRENT_TIMESTAMP,$${values.length + 1})  RETURNING *`
-  values.push(userId)
-  const result = await client.query(query, values)
-  return result.rows
-} catch( e ) {
-  console.log('lalala')
-  console.log(e)
-}
 }
 
 module.exports = {
