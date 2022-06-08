@@ -16,7 +16,9 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd ${{ secrets.PROJECT_PATH }}
+            rm package-lock.json
             cd ..
+            rm package-lock.json
             git pull
             cd ${{ secrets.PROJECT_PATH }}
             export NVM_DIR="$HOME/.nvm" 

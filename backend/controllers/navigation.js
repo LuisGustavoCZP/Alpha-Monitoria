@@ -21,13 +21,13 @@ module.exports = {
   },
   create: async function (req, res) {
     try {
-      console.log('create navigations 1')
+      //console.log('create navigations 1')
       const navegacaoModel = new Navegacao()
-      console.log('create navigations 2')
+      //console.log('create navigations 2')
       const result = await navegacaoModel.insert({
         ...req.body,
       })
-      console.log('create navigations 3')
+      //console.log('create navigations 3')
       res.status(200).json(result)
     } catch (e) {
       res.status(400).json({ message: e })

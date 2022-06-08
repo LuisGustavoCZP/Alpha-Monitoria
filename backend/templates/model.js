@@ -20,13 +20,13 @@ class Model {
   }
 
   async insert (body) {
-    console.log('model navigation 1')
+    //console.log('model navigation 1')
     const client = await getClient()
-    console.log('model navigation 2')
+    //console.log('model navigation 2')
     const result = await createQuery(client, this.table, body, this.userId)
-    console.log('model navigation 3')
+    //console.log('model navigation 3')
     await client.end()
-    console.log('model navigation 4')
+    //console.log('model navigation 4')
     return result[0]
   }
 
