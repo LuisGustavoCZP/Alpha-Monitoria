@@ -2,7 +2,7 @@ class FormSheetElement extends HTMLElement
 {
     url;
     form = null;
-    eventSubmitSucess;
+    eventSubmitSucess = null;
 
     static define ()
     {
