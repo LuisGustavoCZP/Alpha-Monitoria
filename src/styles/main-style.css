@@ -37,10 +37,30 @@ nav > ul {
     display: flex;
     flex-direction: row;
     list-style: none;
+    margin: 10px;
 }
 
 nav > ul > li {
-    margin: 5px 10px;
+    margin: 5px 10px;    
+}
+
+nav > ul > li > a {
+    padding: 10px;
+    border: 1px solid var(--color-gray);
+    text-decoration: none;
+}
+
+nav > ul > li > a {
+    font-size: 1em;
+    transition: .3s;
+    background-color: var(--color2);
+}
+
+nav > ul > li > a:hover {
+    font-size: 1.2em;
+    transition: .3s;
+    background-color: var(--color3);
+    border-color: var(--color-blank);
 }
 
 sp-element {
