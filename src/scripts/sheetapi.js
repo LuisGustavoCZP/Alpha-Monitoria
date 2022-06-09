@@ -28,7 +28,7 @@ window.backend = {
 
 async function iniciar ()
 {
-    window.trilhas = await fetch(`${window.api}?sheet=Trilhas`)
+    window.trilhas = await fetch(`${backend.api}/trails`, backend.options.get)
     .then(resp => resp.json())
     .then(resp => 
     {
@@ -36,7 +36,7 @@ async function iniciar ()
         
         return Object.fromEntries(
             resp.map(object => {
-              return [object.name, object];
+              return [object.id, object];
             }),
         );
     })
