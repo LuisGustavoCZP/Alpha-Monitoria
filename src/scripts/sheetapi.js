@@ -1,6 +1,28 @@
 window.monitores = [];
 window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
-window.apiurl = "https://backendalphamonitoria10.andersonferreiraalves.com";
+
+window.backend = {
+    api:"https://backendalphamonitoria10.andersonferreiraalves.com",
+    datas:[
+        "navigations",
+        "trails",
+        "monitors",
+        "doubts",
+        "revisions",
+        "materials"
+    ],
+    options:{
+        get: {
+            method:"GET",
+            mode:"no-cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin":"*"
+            }
+        }
+    }
+}
+
 async function iniciar ()
 {
     window.trilhas = await fetch(`${window.api}?sheet=Trilhas`)
@@ -18,18 +40,11 @@ async function iniciar ()
     .catch(err => console.log(err));
     console.log(window.trilhas);
 
-    window.menus = await fetch(`${window.apiurl}/navigations`,
-    {
-        method:"GET",
-        mode:"no-cors",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    window.menus = await fetch(`${backend.api}/${backend.datas}`, backend.options.get)
     /* .then(resp => resp.json()) */
     .then(resp => 
     {
-        console.log(resp.status);
+        console.log(resp);
         const menus = {};
         for(let n of resp)
         {
