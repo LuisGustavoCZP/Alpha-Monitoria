@@ -10,7 +10,8 @@
 
 form {
     margin: 10px;
-    width: fit-content;
+    min-width: fit-content;
+    flex-grow: 1;
 }
 
 form > fieldset {
