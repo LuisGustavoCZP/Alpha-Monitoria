@@ -5,15 +5,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --color1: hsl(120, 73%, 75%);
-    --color2: hsl(190, 90%, 50%);
-    --color3: hsl(060, 73%, 75%);
-    --color-blank: whitesmoke;
-    --color-black: black;
-    --color-denied: red;
-}
-
 body {
     display: flex;
     flex-direction: column;

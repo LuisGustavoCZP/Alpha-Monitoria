@@ -1,3 +1,13 @@
+:root {
+    --color1: hsl(120, 73%, 75%);
+    --color2: hsl(190, 90%, 50%);
+    --color3: hsl(060, 73%, 75%);
+    --color-blank: whitesmoke;
+    --color-gray: gray;
+    --color-black: rgb(17, 16, 16);
+    --color-denied: red;
+}
+
 form {
     margin: 10px;
     width: fit-content;
@@ -5,6 +15,14 @@ form {
 
 form > fieldset {
     padding: 10px;
+    background-color: var(--color1);
+}
+
+form > fieldset > legend {
+    background-color: var(--color2);
+    color: var(--color-black);
+    padding: 0 5px;
+    border: 1px solid var(--color-gray);
 }
 
 form textarea {
