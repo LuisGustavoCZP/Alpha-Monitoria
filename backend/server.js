@@ -18,8 +18,9 @@ app.get('/', (req, res) => {
 })
 
 app.use(cors({
-  origin: [HOST_FRONTEND],
-  credentials: true
+  origin: '*'
+  //origin: [HOST_FRONTEND],
+  //credentials: true
 }))
 app.use(express.json({ limit: '10MB' }))
 app.use(express.urlencoded({ extended: true }))
