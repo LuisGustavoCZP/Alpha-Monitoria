@@ -14,11 +14,14 @@ window.backend = {
     options:{
         get: {
             method:"GET",
-            mode:"no-cors",
+            mode:"cors",
             headers: {
-                "Access-Control-Allow-Origin":"*",
-                "Content-Type": "application/json", 
-            }
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true
+            },
+            /* credentials: 'include', */
         }
     }
 }
@@ -41,7 +44,7 @@ async function iniciar ()
     console.log(window.trilhas);
 
     window.menus = await fetch(`${backend.api}/navigations`, backend.options.get)
-    /* .then(resp => resp.json()) */
+    .then(resp => resp.json())
     .then(resp => 
     {
         console.log(resp);
