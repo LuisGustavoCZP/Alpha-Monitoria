@@ -1,0 +1,2 @@
+--SELECT * FROM navigations;
+--DELETE FROM navigations WHERE id=1;
