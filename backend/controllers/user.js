@@ -6,7 +6,8 @@ module.exports = {
   list: async function (req, res) {
     try {
       const userModel = new User()
-      const result = await userModel.view()
+      const filters = req.query.filters ? JSON.parse(req.query.filters) : {}
+      const result = await userModel.view(filters)
       res.status(200).json(result)
     } catch (e) {
       res.status(400).json({ message: e })

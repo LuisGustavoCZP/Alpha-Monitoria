@@ -1,11 +1,11 @@
-const Novidade = require('../models/news')
+const Mentorship = require('../models/mentorship')
 
 module.exports = {
   list: async function (req, res) {
     try {
-      const novidadeModel = new Novidade()
+      const mentorshipModel = new Mentorship()
       const filters = req.query.filters ? JSON.parse(req.query.filters) : {}
-      const result = await novidadeModel.view(filters)
+      const result = await mentorshipModel.view(filters)
       res.status(200).json(result)
     } catch (e) {
       res.status(400).json({ message: e })
@@ -13,8 +13,8 @@ module.exports = {
   },
   getOne: async function (req, res) {
     try {
-      const novidadeModel = new Novidade()
-      const result = await novidadeModel.view({ id: req.id })
+      const mentorshipModel = new Mentorship()
+      const result = await mentorshipModel.view({ id: req.id })
       res.status(200).json(result[0])
     } catch (e) {
       res.status(400).json({ message: e })
@@ -22,8 +22,8 @@ module.exports = {
   },
   create: async function (req, res) {
     try {
-      const novidadeModel = new Novidade()
-      const result = await novidadeModel.insert({
+      const mentorshipModel = new Mentorship()
+      const result = await mentorshipModel.insert({
         ...req.body,
       })
       res.status(200).json(result)
@@ -33,8 +33,8 @@ module.exports = {
   },
   update: async function (req, res) {
     try {
-      const novidadeModel = new Novidade()
-      const result = await novidadeModel.edit(req.id, {
+      const mentorshipModel = new Mentorship()
+      const result = await mentorshipModel.edit(req.id, {
         ...req.body
       })
       res.status(200).json(result)
@@ -44,8 +44,8 @@ module.exports = {
   },
   delete: async function (req, res) {
     try {
-      const novidadeModel = new Novidade()
-      const result = await novidadeModel.delete(req.id)
+      const mentorshipModel = new Mentorship()
+      const result = await mentorshipModel.delete(req.id)
       res.status(200).json(result)
     } catch (e) {
       res.status(400).json({ message: e })

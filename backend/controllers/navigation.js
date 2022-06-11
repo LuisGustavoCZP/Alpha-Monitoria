@@ -4,7 +4,8 @@ module.exports = {
   list: async function (req, res) {
     try {
       const navegacaoModel = new Navegacao()
-      const result = await navegacaoModel.view()
+      const filters = req.query.filters ? JSON.parse(req.query.filters) : {}
+      const result = await navegacaoModel.view(filters)
       res.status(200).json(result)
     } catch (e) {
       res.status(400).json({ message: e })
