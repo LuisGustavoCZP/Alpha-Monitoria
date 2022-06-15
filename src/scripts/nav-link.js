@@ -51,6 +51,7 @@ class NavLink extends HTMLElement
         for(const sourceid in this.sources) 
         {
             const source = this.sources[sourceid];
+            if(source.disabled) continue;
             console.log(sourceid, source);
             const id = `${source.menu}.${source.name}`;
             if(first)
@@ -70,3 +71,5 @@ class NavLink extends HTMLElement
 }
 
 NavLink.define();
+
+export default {NavLink};

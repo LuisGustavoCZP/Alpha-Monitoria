@@ -1,5 +1,8 @@
 window.monitores = [];
-window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
+window.api = "https://script.google.com/macros/s/AKfycbwxd-RZlLM0vO72L79P2UgT4ppVwUUsv5h4cPQQMo82wcm5N4B5KGjnkdxlB5fGs9pLtg/exec";
+
+import formsheet from "./form-sheet.js";
+import navlink from "./nav-link.js";
 
 async function iniciar ()
 {
