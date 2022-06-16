@@ -56,7 +56,7 @@
         display: flex;
         flex-direction: column;
         background-color: var(--color2);
-        padding: 5px;
+        padding: 2px;
         /* max-width: max-content;
         min-width: min-content; */
         width: 100%;
@@ -84,12 +84,17 @@
         max-width: max-content;
         min-width: min-content;
         height: 100%;
-        background-color: var(--color1);
+        min-width: 100%;
+        background-color: var(--color-blank);
     }
     #duvidas > li {
-        background-color: var(--color-blank);
+        background-color: var(--color1);
         margin: 5px;
     }
+    #duvidas > li.answered {
+        cursor: pointer;
+    }
+
     #duvidas > li > span {
         display: flex;
         justify-content: space-between;
@@ -109,6 +114,21 @@
 
         color: var(--color1a);
         border-color: var(--color1a);
+    }
+
+    #duvidas > li.answered > .li-header > p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        font-size: 1.6em;
+        font-weight: bolder;
+        border: none;
+        background-color: unset;
+        padding: 0;
+        /* color: var(--color1a); */
+        /* border-color: var(--color1a); */
     }
 
     #duvidas > li > span > * {
@@ -206,35 +226,47 @@
                     h4.innerText = trilha.title;
                     liHeader.append(h4);
 
-                    if(duvida.votes > 0)
-                    {
-                        const likes = document.createElement("p");
-                        likes.innerText = `+${duvida.votes}`;
-                        liHeader.append(likes);
-                    }
-
                     const span = document.createElement("span");
                     span.classList.add("li-content");
                     const op = document.createElement("p");
                     op.innerText = duvida.content;
                     span.append(op);
-
-                    const like = document.createElement("button");
-                    like.innerText = "👍";
-                    like.onclick = () => {
-                        const formData = new FormData();
-                        formData.append("voting","true");
-                        fetch(`${window.api}?sheet=Duvidas&index=${duvida.id+2}`,
-                        { method: 'POST', body: formData })
-                        .then(resp => resp.text())
-                        .then(resp => 
+                    if(!duvida['answer_url'])
+                    {
+                        if(duvida.votes > 0)
                         {
-                            console.log(resp);
-                            loadDuvidas ();
-                        });
+                            const likes = document.createElement("p");
+                            likes.innerText = `+${duvida.votes}`;
+                            liHeader.append(likes);
+                        }
+
+                        const like = document.createElement("button");
+                        like.innerText = "👍";
+                        like.onclick = () => {
+                            const formData = new FormData();
+                            formData.append("voting","true");
+                            fetch(`${window.api}?sheet=Duvidas&index=${duvida.id+2}`,
+                            { method: 'POST', body: formData })
+                            .then(resp => resp.text())
+                            .then(resp => 
+                            {
+                                console.log(resp);
+                                loadDuvidas ();
+                            });
+                            
+                        };
+                        span.append(like);
+                    } else {
+                        const answered = document.createElement("p");
+                        answered.innerText = "✅";
+                        liHeader.append(answered);
                         
-                    };
-                    span.append(like);
+                        li.classList.add("answered");
+                        li.onclick = ()=>
+                        {
+                            window.open(duvida.answer_url);
+                        };
+                    }
 
                     li.append(liHeader);
                     li.append(span);
