@@ -37,11 +37,13 @@ nav > ul {
     display: flex;
     flex-direction: row;
     list-style: none;
+    align-items: flex-end;
     margin: 10px;
+    height: 30px;
 }
 
 nav > ul > li {
-    margin: 5px 10px;    
+    margin: 5px 10px;
 }
 
 nav > ul > li > a {
@@ -52,8 +54,9 @@ nav > ul > li > a {
 
 nav > ul > li > a {
     font-size: 1em;
-    transition: .3s;
+    transition: .7s;
     background-color: var(--color2);
+    
 }
 
 nav > ul > li > a:hover {

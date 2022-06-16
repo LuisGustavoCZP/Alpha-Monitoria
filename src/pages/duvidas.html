@@ -33,12 +33,16 @@
         /* justify-content: stretch; */
     }
 
-    form-sheet {
+    form-monitoria {
         display: flex;
         /* width: fit-content; */
         /* min-width: 300px;
         max-width: 100%; */
         width: 100%;
+    }
+
+    form-monitoria textarea {
+        height: 200px;
     }
 
     .categoria-menu {
@@ -91,16 +95,28 @@
         justify-content: space-between;
         padding: 5px;
     }
-    #duvidas > li > h4 {
-        padding: 10px;
+    #duvidas > li > .li-header {
         text-align: center;
         background-color: var(--color3);
+        user-select: none;
     }
+
+    #duvidas > li > .li-header > p {
+        font-size: 1.2em;
+        font-weight: bolder;
+        border: 1px solid;
+        background-color: var(--color-blank);
+
+        color: var(--color1a);
+        border-color: var(--color1a);
+    }
+
     #duvidas > li > span > * {
         padding: 5px;
     }
     #duvidas > li > span > button {
         align-items: center;
+        user-select: none;
     }
 </style>
 <div>
@@ -183,11 +199,22 @@
                 {
                     const li = document.createElement("li");
 
+                    const liHeader = document.createElement("span");
+                    liHeader.classList.add("li-header");
                     const h4 = document.createElement("h4");
                     const trilha = window.trilhas[duvida.trail];
                     h4.innerText = trilha.title;
+                    liHeader.append(h4);
+
+                    if(duvida.votes > 0)
+                    {
+                        const likes = document.createElement("p");
+                        likes.innerText = `+${duvida.votes}`;
+                        liHeader.append(likes);
+                    }
 
                     const span = document.createElement("span");
+                    span.classList.add("li-content");
                     const op = document.createElement("p");
                     op.innerText = duvida.content;
                     span.append(op);
@@ -209,7 +236,7 @@
                     };
                     span.append(like);
 
-                    li.append(h4);
+                    li.append(liHeader);
                     li.append(span);
                     duvidasContent.append(li);
                 }

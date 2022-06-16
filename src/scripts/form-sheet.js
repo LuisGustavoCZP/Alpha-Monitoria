@@ -59,19 +59,22 @@ class MonitoriaForm extends FormSheetElement
     constructor()
     {
         super();
-        url = window.api;
-        if(this.hasAttribute('url')) 
+        
+        this.url = window.api;
+        if(this.hasAttribute('sheet')) 
         {
-            this.url = this.getAttribute('url');
+            this.sheet = this.getAttribute('sheet');
+            this.url += `?sheet=${this.sheet}`;
+            console.log(this.url);
         }
     }
 
     static define ()
     {
-        customElements.define('form-monitoria', FormSheetElement);
+        customElements.define('form-monitoria', MonitoriaForm);
     }
 
 }
 
-FormSheetElement.define();
+MonitoriaForm.define();
 export default {FormSheetElement, MonitoriaForm};

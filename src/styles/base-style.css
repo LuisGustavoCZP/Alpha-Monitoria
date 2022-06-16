@@ -2,6 +2,9 @@
     --color1: hsl(120, 73%, 75%);
     --color2: hsl(190, 90%, 50%);
     --color3: hsl(060, 73%, 75%);
+    --color1a: hsl(120, 90%, 50%);
+    --color2a: hsl(190, 73%, 75%);
+    --color3a: hsl(060, 90%, 50%);
     --color-blank: whitesmoke;
     --color-gray: gray;
     --color-black: rgb(17, 16, 16);
@@ -40,10 +43,12 @@ form > fieldset > legend {
 form textarea {
     resize: none;
     min-width: 100%;
-    height: 100px;
+    min-height: 100px;
+    height: 100%;
     width: 100%;
     padding: 5px;
     background-color: var(--color-blank);
+    text-align: left;
 }
 
 form input {
