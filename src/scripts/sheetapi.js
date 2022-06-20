@@ -102,10 +102,17 @@ async function iniciar ()
 function changePage ()
 {
     const h = window.location.hash.replace("#", "");
-    console.log("mudou para " + h);
     const path = h.split(".");
-    spe.src = window.menus[path[0]][path[1]];
-    spe.addEventListener("loadevent", () => {window.components[path[0]][path[1]]();});
+    const newPath = window.menus[path[0]][path[1]];
+    const changed = spe.src != newPath;
+    if(!changed) return;
+    console.log("mudou para " + newPath);
+    spe.src = newPath;
+    spe.addEventListener("loadevent", () => 
+    {
+        const funcComponent = window.components[path[0]][path[1]]
+        if(funcComponent) funcComponent();
+    });
 }
 
 iniciar ();
