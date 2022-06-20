@@ -65,7 +65,7 @@ async function iniciar ()
     })
     .catch(err => console.log(err));
 
-    window.monitores = await fetch(`${window.api}?sheet=Monitores`)
+    window.monitores = await fetch(`${backend.api}/mentorships`)
     .then(resp => resp.json())
     .then(resp => 
     {
