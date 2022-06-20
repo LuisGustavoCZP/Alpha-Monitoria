@@ -77,7 +77,7 @@ function duvidas ()
                             //const formData = new FormData();
                             //formData.append("voting","true");
                             fetch(`${window.backend.api}/doubts/vote/${duvida.id}`,
-                            { method: 'POST', body: undefined })
+                            { method: 'POST', body: {} })
                             .then(resp => resp.text())
                             .then(resp => 
                             {
