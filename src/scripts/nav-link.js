@@ -70,3 +70,5 @@ class NavLink extends HTMLElement
 }
 
 NavLink.define();
+
+export default {NavLink, spelement};

@@ -25,6 +25,8 @@ window.backend = {
     }
 }
 
+import navlink from "./nav-link.js";
+import forms from "./form-sheet.js";
 import main from "./components/main.js";
 
 window.components = {
