@@ -1,8 +1,9 @@
 function duvidas ()
 {
+    const duvidasContent = document.getElementById("duvidas");
     const sendDuvida = document.getElementById("form-duvida");
     sendDuvida.addEventListener("submitsucess", () => {loadDuvidas ();});
-    
+
     function createOption (title, value, selected=false)
     {
         const op = document.createElement("option");
@@ -11,19 +12,19 @@ function duvidas ()
         if(selected) op.selected = true;
         return op;
     }
-    
+
     const categoriaSelector = document.getElementById("categoria");
     categoriaSelector.append(createOption("Todos", "all", true));
-    
+
     const trilhaSelector = document.getElementById("trilha");
     for(const ok in window.trilhas) 
     {
         const trilha = window.trilhas[ok];
-    
+
         trilhaSelector.append(createOption(trilha.title, trilha.name));
         categoriaSelector.append(createOption(trilha.title, trilha.name));
     };
-    
+
     async function loadDuvidas () 
     {
         window.duvidas = await fetch(`${window.api}?sheet=Duvidas`)
@@ -39,7 +40,7 @@ function duvidas ()
             return resp;
         })
         .catch(err => console.log(err));
-        const duvidasContent = document.getElementById("duvidas");
+        
         function filterDuvidas ()
         {
             duvidasContent.innerHTML = "";
@@ -48,34 +49,57 @@ function duvidas ()
                 if(categoriaSelector.value == "all" || categoriaSelector.value == duvida.trail)
                 {
                     const li = document.createElement("li");
-    
+
+                    const liHeader = document.createElement("span");
+                    liHeader.classList.add("li-header");
                     const h4 = document.createElement("h4");
                     const trilha = window.trilhas[duvida.trail];
                     h4.innerText = trilha.title;
-    
+                    liHeader.append(h4);
+
                     const span = document.createElement("span");
+                    span.classList.add("li-content");
                     const op = document.createElement("p");
                     op.innerText = duvida.content;
                     span.append(op);
-    
-                    const like = document.createElement("button");
-                    like.innerText = "👍";
-                    like.onclick = () => {
-                        const formData = new FormData();
-                        formData.append("voting","true");
-                        fetch(`${window.api}?sheet=Duvidas&index=${duvida.id+2}`,
-                        { method: 'POST', body: formData })
-                        .then(resp => resp.text())
-                        .then(resp => 
+                    if(!duvida['answer_url'])
+                    {
+                        if(duvida.votes > 0)
                         {
-                            console.log(resp);
-                            loadDuvidas ();
-                        });
+                            const likes = document.createElement("p");
+                            likes.innerText = `+${duvida.votes}`;
+                            liHeader.append(likes);
+                        }
+
+                        const like = document.createElement("button");
+                        like.innerText = "👍";
+                        like.onclick = () => {
+                            const formData = new FormData();
+                            formData.append("voting","true");
+                            fetch(`${window.api}?sheet=Duvidas&index=${duvida.id+2}`,
+                            { method: 'POST', body: formData })
+                            .then(resp => resp.text())
+                            .then(resp => 
+                            {
+                                console.log(resp);
+                                loadDuvidas ();
+                            });
+                            
+                        };
+                        span.append(like);
+                    } else {
+                        const answered = document.createElement("p");
+                        answered.innerText = "✅";
+                        liHeader.append(answered);
                         
-                    };
-                    span.append(like);
-    
-                    li.append(h4);
+                        li.classList.add("answered");
+                        li.onclick = ()=>
+                        {
+                            window.open(duvida.answer_url);
+                        };
+                    }
+
+                    li.append(liHeader);
                     li.append(span);
                     duvidasContent.append(li);
                 }
@@ -85,7 +109,7 @@ function duvidas ()
         categoriaSelector.onchange = filterDuvidas;
         filterDuvidas ();
     }
-    
+
     loadDuvidas ();
 }
 
