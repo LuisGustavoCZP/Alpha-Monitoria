@@ -5,6 +5,8 @@ const VerifyIdMiddleware = require('../middlewares/verifyId')
 
 const router = express.Router()
 
+router.post('/vote/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validation.validateUpdate, */ DoubtController.vote)
+
 router.get('/', DoubtController.list)
 
 router.get('/:id', VerifyIdMiddleware, DoubtController.getOne)
@@ -15,6 +17,5 @@ router.put('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validati
 
 router.delete('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, DoubtController.delete)
 
-router.post('/vote/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validation.validateUpdate, */ DoubtController.vote)
 
 module.exports = router
