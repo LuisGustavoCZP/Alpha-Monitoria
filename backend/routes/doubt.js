@@ -15,4 +15,6 @@ router.put('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validati
 
 router.delete('/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, DoubtController.delete)
 
+router.post('/vote/:id', VerifyIdMiddleware/* , AutorizationMiddleware */, /* validation.validateUpdate, */ DoubtController.vote)
+
 module.exports = router

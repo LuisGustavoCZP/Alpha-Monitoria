@@ -60,11 +60,11 @@ class MonitoriaForm extends FormSheetElement
     {
         super();
         
-        this.url = window.api;
+        this.url = window.backend.api;
         if(this.hasAttribute('sheet')) 
         {
             this.sheet = this.getAttribute('sheet');
-            this.url += `?sheet=${this.sheet}`;
+            this.url += `/${this.sheet}`;
             console.log(this.url);
         }
     }

@@ -50,4 +50,16 @@ module.exports = {
       res.status(400).json({ message: e })
     }
   },
+  vote: async function (req, res) {
+    try {
+      const duvidaModel = new Duvida()
+      const last = await duvidaModel.view({ id: req.id });
+      const result = await duvidaModel.edit(req.id, {
+        "votes":last.votes+1
+      })
+      res.status(200).json(result)
+    } catch (e) {
+      res.status(400).json({ message: e })
+    }
+  },
 }

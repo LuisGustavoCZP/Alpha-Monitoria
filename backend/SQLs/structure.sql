@@ -56,10 +56,11 @@ CREATE TABLE public.navigations (
 
 CREATE TABLE public.doubts (
 	"id" serial NOT NULL,
-	"trail" integer NOT NULL,
+	"trail" varchar(20) NOT NULL,
 	"content" varchar NOT NULL,
 	"votes" integer NOT NULL,
 	"requester" varchar(120),
+	"answer_link" varchar(255),
 	"created_by" integer,
 	"updated_by" integer,
 	"deleted_by" integer,

@@ -27,13 +27,13 @@ function duvidas ()
 
     async function loadDuvidas () 
     {
-        window.duvidas = await fetch(`${window.api}?sheet=Duvidas`)
+        window.duvidas = await fetch(`${window.backend.api}/doubts`)
         .then(resp => resp.json())
         .then(resp => 
         {
-            resp.forEach((element, index) => {
+            /* resp.forEach((element, index) => {
                 element.id = index;
-            });
+            }); */
             resp.sort((a,b) => b.votes - a.votes);
             console.log("Duvidas atualizada", resp);
             
@@ -74,10 +74,10 @@ function duvidas ()
                         const like = document.createElement("button");
                         like.innerText = "👍";
                         like.onclick = () => {
-                            const formData = new FormData();
-                            formData.append("voting","true");
-                            fetch(`${window.api}?sheet=Duvidas&index=${duvida.id+2}`,
-                            { method: 'POST', body: formData })
+                            //const formData = new FormData();
+                            //formData.append("voting","true");
+                            fetch(`${window.backend.api}/doubts/vote/${duvida.id}`,
+                            { method: 'POST', body: undefined })
                             .then(resp => resp.text())
                             .then(resp => 
                             {
