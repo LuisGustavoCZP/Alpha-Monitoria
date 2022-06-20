@@ -111,7 +111,11 @@ function changePage ()
     spe.addEventListener("loadevent", () => 
     {
         const funcComponent = window.components[path[0]][path[1]]
-        if(funcComponent) funcComponent();
+        if(funcComponent) {
+           try { 
+            funcComponent(); 
+           } catch(e) { console.log(e); }
+        }
     });
 }
 
