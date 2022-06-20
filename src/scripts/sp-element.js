@@ -3,6 +3,7 @@ class SinglePageElement extends HTMLElement
     #src;
     main = null;
     title = null;
+    onloadevent = null;
 
     static define ()
     {
@@ -19,12 +20,13 @@ class SinglePageElement extends HTMLElement
         this.append(this.title);
         this.append(this.main);
 
+        this.onloadevent = new Event('loadevent');
         if(this.hasAttribute('src')) 
         {
             //console.log("Tem source!");
             this.src = { path:this.getAttribute('src') };
         }
-        
+
         window.spe = this;
     }
 
@@ -86,6 +88,7 @@ class SinglePageElement extends HTMLElement
                 this.removeScripts(scripts);
                 this.main.innerHTML = p.innerHTML;
                 this.runScripts (scripts);
+                if(this.onloadevent) this.dispatchEvent(this.onloadevent);
             }
 
             console.log("Carregado com sucesso!");

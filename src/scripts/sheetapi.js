@@ -1,6 +1,5 @@
 window.monitores = [];
 window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
-
 window.backend = {
     api:"https://backendalphamonitoria10.andersonferreiraalves.com",
     datas:[
@@ -26,6 +25,16 @@ window.backend = {
     }
 }
 
+import main from "./components/main.js";
+
+window.components = {
+    main: {
+        home: main.home,
+        doubts: main.duvidas,
+        revision: main.revisao,
+    },
+}
+
 async function iniciar ()
 {
     window.trilhas = await fetch(`${backend.api}/trails`, backend.options.get)
@@ -36,7 +45,7 @@ async function iniciar ()
         
         return Object.fromEntries(
             resp.map(object => {
-              return [object.id, object];
+              return [object.name, object];
             }),
         );
     })
@@ -94,6 +103,7 @@ function changePage ()
     console.log("mudou para " + h);
     const path = h.split(".");
     spe.src = window.menus[path[0]][path[1]];
+    spe.addEventListener("loadevent", () => {window.components[path[0]][path[1]]();});
 }
 
 iniciar ();

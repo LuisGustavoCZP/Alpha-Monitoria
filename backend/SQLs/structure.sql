@@ -75,6 +75,7 @@ CREATE TABLE public.doubts (
 
 CREATE TABLE public.trails (
 	"id" serial NOT NULL,
+	"name" varchar(80) NOT NULL,
 	"title" varchar(200) NOT NULL,
 	"link" varchar(200) NOT NULL UNIQUE,
 	"created_by" integer,
