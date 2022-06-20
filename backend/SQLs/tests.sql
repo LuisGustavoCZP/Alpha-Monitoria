@@ -10,3 +10,5 @@ CREATE or REPLACE VIEW view_mentors AS
   WHERE users.privilege = 0;
 */
 --SELECT * FROM view_mentors;
+
+UPDATE doubts SET "votes"=1 WHERE id=2
