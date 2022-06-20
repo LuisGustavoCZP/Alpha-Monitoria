@@ -3,6 +3,14 @@ window.api = "https://script.google.com/macros/s/AKfycbwxd-RZlLM0vO72L79P2UgT4pp
 
 import formsheet from "./form-sheet.js";
 import navlink from "./nav-link.js";
+const searchStrings = window.location.search.replace("?", "").replaceAll("=", ":").split("&");
+const searchDatas = {}
+searchStrings.forEach((d) => {
+    const [key, value] = d.split(":");
+    searchDatas[key] = value;
+});
+
+console.log("Search", searchDatas);
 
 async function iniciar ()
 {
@@ -21,7 +29,7 @@ async function iniciar ()
     .catch(err => console.log(err));
     console.log(window.trilhas);
 
-    window.menus = await fetch(`${window.api}?sheet=Navigation`)
+    window.menus = await fetch(searchDatas["user"] ? `${window.api}?sheet=Navigation&user=${searchDatas["user"]}`: `${window.api}?sheet=Navigation`)
     .then(resp => resp.json())
     .then(resp => 
     {

@@ -51,6 +51,7 @@ class SinglePageElement extends HTMLElement
             if(csrc) nscr.src = csrc;
 
             this.main.append(nscr);
+
             console.log("Trocando", sp, "por", nscr);
         }
     }
@@ -85,6 +86,7 @@ class SinglePageElement extends HTMLElement
                 const scripts = Object.values(scriptsC);
                 this.removeScripts(scripts);
                 this.main.innerHTML = p.innerHTML;
+
                 this.runScripts (scripts);
             }
 
