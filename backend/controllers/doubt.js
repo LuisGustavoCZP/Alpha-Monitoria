@@ -51,11 +51,14 @@ module.exports = {
     }
   },
   vote: async function (req, res) {
+    console.log("Votando");
     try {
       const duvidaModel = new Duvida()
-      const last = await duvidaModel.view({ id: req.id });
+      const last = (await duvidaModel.view({ id: req.id }))[0];
+      const v = last.votes+1;
+      //console.log(last, last.votes, v);
       const result = await duvidaModel.edit(req.id, {
-        "votes":last.votes+1
+        "votes":v
       })
       res.status(200).json(result)
     } catch (e) {

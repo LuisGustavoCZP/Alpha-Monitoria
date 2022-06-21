@@ -2,6 +2,7 @@ window.monitores = [];
 window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
 window.backend = {
     api:"https://backendalphamonitoria10.andersonferreiraalves.com",
+    //api:"http://localhost:3333",
     datas:[
         "navigations",
         "trails",
