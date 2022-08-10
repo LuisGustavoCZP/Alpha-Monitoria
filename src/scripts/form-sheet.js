@@ -65,13 +65,47 @@ class MonitoriaForm extends FormSheetElement
         {
             this.sheet = this.getAttribute('sheet');
             this.url += `/${this.sheet}`;
-            console.log(this.url);
+            //console.log(this.url);
         }
     }
 
     static define ()
     {
         customElements.define('form-monitoria', MonitoriaForm);
+    }
+
+    static formData (form)
+    {
+        const formData = new FormData(form);
+        var object = {};
+        formData.forEach((value, key) => {
+            // Reflect.has in favor of: object.hasOwnProperty(key)
+            if(!Reflect.has(object, key)){
+                object[key] = value;
+                return;
+            }
+            if(!Array.isArray(object[key])){
+                object[key] = [object[key]];    
+            }
+            object[key].push(value);
+        });
+        return object;
+    }
+
+    submit () 
+    {
+        if(!this.url) return;
+        const formData = MonitoriaForm.formData(this.form);
+        console.log("Sending form", formData)
+        fetch(this.url, Object.assign({ body: JSON.stringify(formData) }, window.backend.options.post))
+        .then(response => 
+        { 
+            console.log('Success!', response);
+            this.dispatchEvent(this.onsubmitsucess);
+        })
+        .catch(error => console.log('Error!', error.message))
+
+        this.form.reset();
     }
 
 }

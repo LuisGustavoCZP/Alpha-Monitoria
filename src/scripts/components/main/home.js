@@ -1,6 +1,5 @@
 function home () 
 {
-    console.log("Running! 2");
     const todayStaff = document.getElementById("today-staff");
     const now = new Date();
 
@@ -26,6 +25,7 @@ function home ()
     .then(resp => 
     {
         console.log("Novidades atualizada", resp);
+        newsContainer.innerHTML = "";
         resp.forEach(element => 
         {
             const li = document.createElement("li");

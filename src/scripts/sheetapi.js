@@ -1,8 +1,8 @@
 window.monitores = [];
 window.api = "https://script.google.com/macros/s/AKfycbzb4sv7b74DlplgxJ7a8xJQcTggVZFS8Aw2LMfVfNXxb6IJBJy9uE2NHKsdX35wI1xj0g/exec";
 window.backend = {
-    api:"https://backendalphamonitoria10.andersonferreiraalves.com",
-    //api:"http://localhost:3333",
+    //api:"https://backendalphamonitoria10.andersonferreiraalves.com",
+    api:"http://localhost:3333",
     datas:[
         "navigations",
         "trails",
@@ -21,7 +21,16 @@ window.backend = {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': true
             },
-            /* credentials: 'include', */
+        },
+        post: {
+            method:"POST",
+            mode:"cors",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true
+            },
         }
     }
 }
@@ -30,13 +39,16 @@ import navlink from "./nav-link.js";
 import forms from "./form-sheet.js";
 import main from "./components/main.js";
 
-window.components = {
+window.components = { main };
+
+/* {
     main: {
         home: main.home,
-        doubts: main.duvidas,
-        revision: main.revisao,
+        doubts: main.doubts,
+        revision: main.revision,
+        staff: main.staff,
     },
-}
+} */
 
 async function iniciar ()
 {
@@ -44,7 +56,7 @@ async function iniciar ()
     .then(resp => resp.json())
     .then(resp => 
     {
-        console.log("Trilhas atualizada", resp);
+        
         
         return Object.fromEntries(
             resp.map(object => {
@@ -53,13 +65,22 @@ async function iniciar ()
         );
     })
     .catch(err => console.log(err));
-    console.log(window.trilhas);
+    console.log("Trilhas atualizada", window.trilhas);
+
+    window.monitores = await fetch(`${backend.api}/mentorships`)
+    .then(resp => resp.json())
+    .then(resp => 
+    {
+        return resp;
+    })
+    .catch(err => console.log(err));
+    console.log("Montoria atualizada", window.monitores);
 
     window.menus = await fetch(`${backend.api}/navigations`, backend.options.get)
     .then(resp => resp.json())
     .then(resp => 
     {
-        console.log(resp);
+        //console.log(resp);
         const menus = {};
         for(let n of resp)
         {
@@ -77,17 +98,7 @@ async function iniciar ()
     })
     .catch(err => console.log(err));
 
-    window.monitores = await fetch(`${backend.api}/mentorships`)
-    .then(resp => resp.json())
-    .then(resp => 
-    {
-        console.log("Montoria atualizada", resp);
-        return resp;
-    })
-    .catch(err => console.log(err));
-
     const p = document.querySelector("body > header");
-    console.log(p);
     const navlink = document.createElement("nav-link");
     
     p.append(navlink);
@@ -107,7 +118,7 @@ function changePage ()
     const newPath = window.menus[path[0]][path[1]];
     const changed = spe.src != newPath;
     if(!changed) return;
-    console.log("mudou para " + newPath);
+    console.log("mudou para ", newPath);
     spe.src = newPath;
     spe.addEventListener("loadevent", () => 
     {

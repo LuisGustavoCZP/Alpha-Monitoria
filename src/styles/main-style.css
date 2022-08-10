@@ -10,6 +10,7 @@ body {
     flex-direction: column;
     width: 100vw;
     height: 100vh;
+    background-color: var(--color3);
 }
 
 header {
@@ -19,6 +20,7 @@ header {
     justify-content: center;
     align-items: center;
     background-color: var(--color1);
+    box-shadow: 1px 1px 1px var(--color-black);
 }
 
 header > h1 {
@@ -38,6 +40,10 @@ nav > ul {
     flex-direction: row;
     list-style: none;
     margin: 10px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color3);
 }
 
 nav > ul > li {
@@ -54,13 +60,15 @@ nav > ul > li > a {
     font-size: 1em;
     transition: .3s;
     background-color: var(--color2);
+    box-shadow: 1px 1px 1px var(--color-black);
 }
 
 nav > ul > li > a:hover {
     font-size: 1.2em;
     transition: .3s;
-    background-color: var(--color3);
+    background-color: var(--color1);
     border-color: var(--color-blank);
+    box-shadow: 1px 1px 1px var(--color-blank);
 }
 
 sp-element {
@@ -71,7 +79,6 @@ sp-element {
     height: 100%;
     flex-direction: column;
     overflow-y: scroll;
-    background-color: var(--color3);
 }
 
 sp-element > h2 {

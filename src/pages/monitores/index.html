@@ -1,20 +1,33 @@
 <style>
+    #monitores {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        margin:10px; 
+        padding:10px; 
+        background-color: black; 
+        color: white;
+        
+    }
+
+    #monitores > li {
+        width: 400px;
+        height: 300px;
+        margin: 10px;
+        background-color: var(--color3);
+    }
+
+    #monitores > li h4 {
+        padding:15px;
+        text-align: center;
+        background-color: var(--color1);
+        font-size: 1.3em;
+        text-shadow: 1px 1px 1px var(--color-black);
+        
+        box-shadow: 1px 1px 1px var(--color-black);
+    }
 
 </style>
 <section>
-    <ol id="monitores" style="margin:10px; padding:30px; background-color: black; color: white;"></ol>
-    <script>
-        console.log("Running! 2");
-        const monitoresContainer = document.getElementById("monitores");
-    
-        monitores.forEach(element => 
-        {
-            const p = document.createElement("li");
-            const a = document.createElement("a");
-            a.innerText = element.name;
-            a.href = element.link;
-            p.append(a);
-            monitoresContainer.append(p);
-        });
-    </script>
+    <ul id="monitores"></ul>
 </section>

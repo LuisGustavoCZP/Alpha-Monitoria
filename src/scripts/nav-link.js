@@ -46,12 +46,12 @@ class NavLink extends HTMLElement
         
         this.containerEl.innerHTML = "";
         this.sources = window.menus[this.menu];
-        console.log(this.sources);
+        //console.log(this.sources);
         let first = true;
         for(const sourceid in this.sources) 
         {
             const source = this.sources[sourceid];
-            console.log(sourceid, source);
+            //console.log(sourceid, source);
             const id = `${source.menu}.${source.name}`;
             if(first)
             {

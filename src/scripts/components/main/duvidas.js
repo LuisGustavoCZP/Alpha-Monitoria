@@ -31,9 +31,6 @@ function duvidas ()
         .then(resp => resp.json())
         .then(resp => 
         {
-            /* resp.forEach((element, index) => {
-                element.id = index;
-            }); */
             resp.sort((a,b) => b.votes - a.votes);
             console.log("Duvidas atualizada", resp);
             
@@ -73,18 +70,16 @@ function duvidas ()
 
                         const like = document.createElement("button");
                         like.innerText = "👍";
-                        like.onclick = () => {
-                            //const formData = new FormData();
-                            //formData.append("voting","true");
+                        like.onclick = () => 
+                        {
                             fetch(`${window.backend.api}/doubts/vote/${duvida.id}`,
                             { method: 'POST', body: {} })
                             .then(resp => resp.text())
                             .then(resp => 
                             {
-                                console.log(resp);
+                                //console.log(resp);
                                 loadDuvidas ();
                             });
-                            
                         };
                         span.append(like);
                     } else {
